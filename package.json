@@ -1,0 +1,22 @@
+{
+  "name": "mobilize-test-suite",
+  "version": "0.1.0",
+  "description": "Test suite for functionally testing the Mobilize front-ends",
+  "main": "index.js",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "wdio-selenium-standalone-service": "0.0.8",
+    "webdriverio": "^4.6.2"
+  },
+  "devDependencies": {
+    "wdio-concise-reporter": "^0.1.2",
+    "wdio-mocha-framework": "^0.5.8",
+    "wdio-selenium-standalone-service": "0.0.8",
+    "wdio-spec-reporter": "0.0.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kapeel Sable <kapeel@mobilizingcs.org>",
+  "license": "ISC"
+}
