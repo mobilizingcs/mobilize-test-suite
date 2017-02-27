@@ -20,8 +20,16 @@ describe('Campaign manager', function() {
 			.to.equal( '2017-02-24 20:26:33' );
 	} );
 
-	it( 'should be able to navigate to Response manager', function( ) {
+	it( 'should be able to create a new campaign', function( ) {
+		// todo
+	} );
+
+	it( 'should be able to delete a campaign', function( ) {
+		// todo
+	} );
+
+	it( 'should be able to update campaign settings', function( ) {
 		// todo
 	} )
-
+	
 });
