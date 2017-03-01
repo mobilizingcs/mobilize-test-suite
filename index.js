@@ -10,7 +10,18 @@ var conf = {
 	dev: {
 		mochaOpts: {
 			timeout: 9999999
-		}
+		},
+		reporters: [ 'dot' ]
+	}
+};
+
+if( env === 'dev' ) {
+	var spec = !!process.argv[ 2 ] ? process.argv[ 2 ] : null;
+	if( !!spec ) {
+		conf.dev[ 'suites' ] = {
+	        dev: [ './test/specs/' + spec + '.js' ]
+	    };
+	    conf.dev[ 'suite' ] = 'dev';
 	}
 }
 

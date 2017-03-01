@@ -1,6 +1,7 @@
 var expect = require('chai').expect;
 var login = require( '../helpers/login' );
 var uuidV4 = require('uuid/v4');
+var constants = require( '../helpers/constants' );
 
 before( function userLogin() {
 	login( browser );		
@@ -31,7 +32,7 @@ describe( 'Survey taking tool', function( ){
 		// todo: run a negative test for this
 		browser.waitUntil(function () {
 		    return browser.getText('#list-region > nav > ul > li > div > div:nth-child(1) > button') === 'Unsave'
-		}, 5000, 'expected text to be different after 5s');			
+		}, constants.waitTimeout, constants.textChangeTimeout);			
 	} );
 
 	it( 'should be able to start taking the survey', function( ){
@@ -40,8 +41,6 @@ describe( 'Survey taking tool', function( ){
 	} )
 
 	it( 'should be able to submit the survey', function( ){
-		var dir = process.argv[1].replace( "node_modules/webdriverio/build/lib/runner.js", "" );
-		dir += 'test/specs';
 		$( '#choice-SnackPeriod-0' ).click( );
 		$( '#step-body > div > div:nth-child(2) > div.step-body-region > div > form > div > textarea' ).setValue( snack_value );
 		var btn = $( '#step-body > div > div:nth-child(3) > div.step-body-region > div > form > fieldset > div > button.increment' );
@@ -49,17 +48,19 @@ describe( 'Survey taking tool', function( ){
 		btn.click();
 		$( '#choice-SnackLocation-3' ).click( );
 		$( '#choice-WhoYouSnackWith-2' ).click( );
-		$( '#step-body > div > div:nth-child(6) > div.step-body-region > div > form > div > textarea' ).setValue( 'Hunger' );
+		$( '#step-body > div > div:nth-child(6) > div.step-body-region > div > form > div > textarea' )
+			.setValue( 'Hunger' );
 		$( '#choice-SnackCost-1' ).click( );
-		$( '#step-body > div > div:nth-child(8) > div.step-body-region > div > form > div > div > div > input[type="file"]' ).chooseFile( dir + '/files/banana.jpeg' );
+		$( '#step-body > div > div:nth-child(8) > div.step-body-region > div > form > div > div > div > input[type="file"]' )
+			.chooseFile( constants.specsDir + '/files/banana.jpeg' );
 		$( '#next-button' ).click( );
 		browser.waitUntil( function(){
 			return browser.getText( '#step-body > div > h2' ) === 'Survey Submit';
-		}, 5000, 'expected text to appear' );
+		}, constants.waitTimeout, constants.textAppearTimeout );
 		$( '#next-button' ).click( );
 		browser.waitUntil( function(){
 			return browser.getText( '#step-body > div > h2' ) === 'Survey Complete';
-		}, 10000, 'expected text to appear' );
+		}, constants.surveyWaitTimeout, constants.textAppearTimeout );
 		$( '#next-button' ).click( );		
 	} );
 
@@ -112,7 +113,7 @@ describe('Response manager', function( ) {
 		$('#share_all_btn').click();
 		browser.waitUntil(function () {
 		    return $('#responsetablebody > tr > td:nth-child(5) > span').getText() === 'shared'
-		}, 5000, 'expected text to be different after 5s');		
+		}, constants.waitTimeout, constants.textChangeTimeout);		
 	} );
 
 	it( 'should be able to unshare a response', function( ) {
@@ -123,7 +124,7 @@ describe('Response manager', function( ) {
 		$('#unshare_all_btn').click();
 		browser.waitUntil(function () {
 		    return $('#responsetablebody > tr > td:nth-child(5) > span').getText() === 'private'
-		}, 5000, 'expected text to be different after 5s');	
+		}, constants.waitTimeout, constants.textChangeTimeout);	
 	} );
 
 	it( 'should be able to delete a response', function( ) {

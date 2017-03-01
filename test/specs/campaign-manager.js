@@ -24,12 +24,12 @@ describe('Campaign manager', function() {
 		// todo
 	} );
 
-	it( 'should be able to delete a campaign', function( ) {
+	it( 'should be able to update the campaign settings', function( ) {
 		// todo
 	} );
 
-	it( 'should be able to update campaign settings', function( ) {
+	it( 'should be able to delete the campaign', function( ) {
 		// todo
-	} )
+	} );
 	
 });
