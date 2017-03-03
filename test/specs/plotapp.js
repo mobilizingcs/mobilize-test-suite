@@ -15,11 +15,15 @@ describe('PlotApp', function() {
 		$( '#yfield' ).selectByVisibleText( 'Responses (count)' );
 		$( '#colorfield' ).selectByVisibleText( 'day' );
 		$( '#plotbutton' ).click( );
+		browser.pause( constants.waitTimeout - 2 * 3000 );
 		$( '#plotdiv > div:nth-child(4)' ).waitForVisible( constants.waitTimeout + 5 );
 		var bg_image = $( '#plotdiv > div:nth-child(4)' ).getCssProperty( 'background-image' );
 		expect( bg_image ).to.not.equal( 'none' );
 		expect( $( '#alertbox' ).isVisible( ) ).to.equal( false );
 		expect( $( '#summarydiv > pre' ).getText( ) ).to.not.equal( '' );
+		if( $( '#summarydiv > pre' ).getText( ) === '' ) {
+			browser.debug( );
+		}
 	} );
 
 	it( 'should be able to load the plot\'s png file', function( ) {	
@@ -30,7 +34,5 @@ describe('PlotApp', function() {
 		browser.switchTab( new_tab_id );
 		$( 'body > img' ).waitForVisible( constants.waitTimeout + 5 );
 	} );
-	
-
 
 });

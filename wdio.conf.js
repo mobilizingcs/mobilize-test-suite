@@ -1,3 +1,4 @@
+var current_dir = process.argv[1].replace( '/index.js', '' );
 exports.config = {
     
     //
@@ -68,7 +69,7 @@ exports.config = {
     bail: 0,
     //
     // Saves a screenshot to a given path if a command fails.
-    screenshotPath: './errorShots/',
+    screenshotPath: './report/error-screenshots/',
     //
     // Set a base URL in order to shorten url command calls. If your url parameter starts
     // with "/", then the base url gets prepended.
@@ -119,17 +120,18 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: http://webdriver.io/guide/testrunner/reporters.html
-    reporters: ['allure'/*,'spec'*/],
+    reporters: [ 'allure', 'dot' ],
     reporterOptions: {
         allure: {
-            outputDir: 'test-results'
+            outputDir: 'report/allure'
         }
     },
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
     mochaOpts: {
-        ui: 'bdd'
+        ui: 'bdd',
+        timeout: 30000
     },
     //
     // =====

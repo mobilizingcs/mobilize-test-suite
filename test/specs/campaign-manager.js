@@ -1,5 +1,6 @@
 var expect = require('chai').expect;
 var login = require( '../helpers/login' );
+var constants = require( '../helpers/constants' );
 
 describe('Campaign manager', function() {
 
@@ -20,16 +21,14 @@ describe('Campaign manager', function() {
 			.to.equal( '2017-02-24 20:26:33' );
 	} );
 
-	it( 'should be able to create a new campaign', function( ) {
-		// todo
-	} );
-
-	it( 'should be able to update the campaign settings', function( ) {
-		// todo
-	} );
-
-	it( 'should be able to delete the campaign', function( ) {
-		// todo
-	} );
+	it( 'should be able to export data', function( ) {
+		$( '#campaigntablebody > tr > td.buttontd > div > button:nth-child(2)' ).click( );
+		$( '#campaigntablebody > tr > td.buttontd > div > ul > li:nth-child(7)' ).waitForVisible( );
+		$( '#campaigntablebody > tr > td.buttontd > div > ul > li:nth-child(7)' ).click( );
+		browser.pause( constants.pauseTimeout );
+		browser.url( 'chrome://downloads' );
+		browser.pause( constants.pauseTimeout );
+		browser.saveScreenshot( './report/campaign-manager-export-data.png' );		
+	} )
 	
 });

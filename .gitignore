@@ -1,3 +1,6 @@
 .DS_Store
 errorShots
 node_modules
+test-results
+allure-report
+credentials.json
