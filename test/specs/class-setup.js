@@ -8,9 +8,8 @@ var new_campaign_name = uuidV4( );
 var new_campaign_description = uuidV4( );
 var updated_campaign_description = uuidV4( );
 var sample_user_list = ['00-4005647','10-9901345','75-4867284','08-5947050','92-3068602','09-8017503','84-0863381'];
-// todo - change this be dynamically calcualted.. cannot be static
-var class_urn = 'urn:class:ucla:2017:spring:bot:ids:p1';
 var user_logged_in = false;
+var class_urn;
 
 function deleteACampaignAndWait( current_count ) {
 	$( '#campaigntable > tbody > tr:nth-child(1) > td:nth-child(5) > button' ).click( );
@@ -69,6 +68,7 @@ describe('Class Setup Tool', function() {
 			$( '#new_class_button' ).click( );
 			$( '#curriculum-name-group' ).waitForVisible( constants.waitTimeout );
 			$( '#inputSubject' ).selectByValue( 'ids' );
+			class_urn = $( '#inputClassUrn' ).getValue( );
 			$( '#createbutton' ).click( );
 			browser.waitUntil(function () {
 		      return $( '#subtitle' ).getText( ) === 'privileged'
