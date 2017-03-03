@@ -3,6 +3,7 @@
 
 var rootDir = process.argv[1].replace( "node_modules/webdriverio/build/lib/runner.js", "" );
 var credentials = require( '../../credentials.json' );
+var reportDir = process.env.REPORT_DIR;
 
 var constants = {
 	textChangeTimeout: 'expected text to be different after 5s', // text for timeout messages
@@ -15,7 +16,9 @@ var constants = {
 	specsDir: rootDir + 'test/specs',
 
 	ohmage_username: credentials.username,
-	ohmage_password: credentials.password
+	ohmage_password: credentials.password,
+
+	reportDir: reportDir
 };
 
 module.exports = constants;

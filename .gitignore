@@ -1,6 +1,5 @@
 .DS_Store
-errorShots
 node_modules
-test-results
-allure-report
+devReport
+reports/*
 credentials.json

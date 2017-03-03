@@ -28,7 +28,7 @@ describe('Campaign manager', function() {
 		browser.pause( constants.pauseTimeout );
 		browser.url( 'chrome://downloads' );
 		browser.pause( constants.pauseTimeout );
-		browser.saveScreenshot( './report/campaign-manager-export-data.png' );		
+		browser.saveScreenshot( constants.reportDir + '/campaign-manager-export-data.png' );		
 	} )
 	
 });

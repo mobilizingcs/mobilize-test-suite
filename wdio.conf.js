@@ -69,7 +69,7 @@ exports.config = {
     bail: 0,
     //
     // Saves a screenshot to a given path if a command fails.
-    screenshotPath: './report/error-screenshots/',
+    screenshotPath: './devReport/error-screenshots/',
     //
     // Set a base URL in order to shorten url command calls. If your url parameter starts
     // with "/", then the base url gets prepended.
@@ -120,7 +120,7 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: http://webdriver.io/guide/testrunner/reporters.html
-    reporters: [ 'allure', 'dot' ],
+    reporters: [ 'dot' ],
     reporterOptions: {
         allure: {
             outputDir: 'report/allure'

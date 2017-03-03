@@ -30,7 +30,7 @@ describe('Document Manager Tool', function() {
 		browser.pause( constants.pauseTimeout );
 		browser.url( 'chrome://downloads' );
 		browser.pause( constants.pauseTimeout );
-		browser.saveScreenshot( './report/document-manager-download.png' );
+		browser.saveScreenshot( constants.reportDir + '/document-manager-download.png' );
 	} );
 	
 });
