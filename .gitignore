@@ -2,4 +2,5 @@
 node_modules
 devReport
 reports/report-*
+report-*
 credentials.json

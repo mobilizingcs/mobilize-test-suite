@@ -101,7 +101,7 @@ describe('Response manager', function( ) {
 	it( 'should be able to search for a response', function( ) {		
 		$('#responsetable_filter > label > input[type="search"]').setValue( snack_value );
 		var user = $('#responsetablebody > tr > td:nth-child(3)').getText( )
-		expect( user ).to.equal( 'site-testing' );		
+		expect( user ).to.equal( constants.ohmage_username );		
 	} );
 
 	it( 'should be able to share a response', function( ) {		

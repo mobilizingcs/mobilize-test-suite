@@ -7,7 +7,7 @@ describe('RStudio', function() {
 		browser.url( '/navbar/rstudio/' );
 		$( '#caption' ).waitForVisible( );
 		$( '#username' ).setValue( constants.ohmage_username );
-		$( '#password' ).setValue( constants.ohmage_username );	
+		$( '#password' ).setValue( constants.ohmage_password );	
 		$( '#buttonpanel > button > table > tbody > tr > td.inner' ).click( );
 	} );
 

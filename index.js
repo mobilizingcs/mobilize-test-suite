@@ -1,6 +1,14 @@
 var Launcher = require('webdriverio').Launcher;
 var fs = require('fs');
 var archiver = require('archiver');
+var credentials = require( './credentials.json' );
+
+if( typeof credentials !== 'object' || 
+	typeof credentials.username !== 'string' ||
+	typeof credentials.password !== 'string' ) {
+	console.error( 'credentials.json file is missing' );
+	process.exit( -1 );
+}
 
 var env = process.env.ENV || 'prod';
 var conf = {
@@ -45,7 +53,7 @@ process.env.REPORT_DIR = report_dir_path;
 
 var wdio = new Launcher("./wdio.conf.js", additional_wdio_conf);
 console.log( 'Running Mobilize platform functional tests' );
-env === 'prod' ? console.log( "Reports will be stored in '" + report_dir_path + "'" ) : null;
+env === 'prod' ? console.log( "Report files will be stored in '" + report_dir_path + "'" ) : null;
 wdio.run().then(function (code) {
 	return code;
 }, function (error) {

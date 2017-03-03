@@ -11,7 +11,7 @@ function login( browser ) {
     browser.click( '#login-submit' )
     browser.waitForVisible( '#nav-username' )
     var text = browser.getText( '#nav-username' );
-    expect(text).to.equal( 'site-testing' );
+    expect(text).to.equal( constants.ohmage_username );
 }
 
 module.exports = login;
