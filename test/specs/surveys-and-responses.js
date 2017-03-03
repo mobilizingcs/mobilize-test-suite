@@ -128,6 +128,15 @@ describe('Response manager', function( ) {
 	} );
 
 	it( 'should be able to delete a response', function( ) {
-		//todo
+		// the radio button is clicked since the last test
+		// click the Actions dropdown
+		$('body > div > div > div.buttondiv.pull-left > div > div > button > span:nth-child(1)').click();
+		browser.waitForVisible('#delete_all_btn');
+		$('#delete_all_btn').click();
+		browser.pause( 1000 );
+		browser.alertAccept( );
+		browser.waitUntil( function( ) { 
+			return $( '#responsetablebody > tr' ).isVisible( ) === false;
+		}, constants.waitTimeout, constants.textChangeTimeout );
 	} );
 });
