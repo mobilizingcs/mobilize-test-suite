@@ -2,6 +2,7 @@ var expect = require('chai').expect;
 var login = require( '../helpers/login' );
 var constants = require( '../helpers/constants' );
 var uuidV4 = require('uuid/v4');
+var path = require( 'path' );
 
 
 var new_campaign_name = uuidV4( );
@@ -88,7 +89,7 @@ describe('Class Setup Tool', function() {
 		it( 'should be able to import users', function( ) {
 			$( '#importpanel' ).click( );
 			$('#collapseTwo > div > div:nth-child(1) > form > div > div > div.input-group > div.input-group-btn > div').waitForVisible();
-			$( '#input-csv' ).chooseFile( constants.specsDir + '/files/sample_class.csv' );
+			$( '#input-csv' ).chooseFile( constants.specsDir + path.normalize( '/files/sample_class.csv' ) );
 			$('.file-preview-text').waitForVisible( );
 			$( '#import_first_name' ).selectByValue( 'first_name' );
 			$( '#import_last_name' ).selectByValue( 'last_name' );
@@ -115,7 +116,7 @@ describe('Class Setup Tool', function() {
 			$( '#campaign_description' ).setValue( new_campaign_description );
 			$( 'body > div.container > div > div.col-md-5.col-lg-4 > div > div.panel.panel-default > form > div:nth-child(4) > div > div > div > span.bootstrap-switch-label' )
 				.click();
-			$( '#upload_xml_button' ).chooseFile( constants.specsDir + '/files/Snack.xml' );
+			$( '#upload_xml_button' ).chooseFile( constants.specsDir + path.normalize( '/files/Snack.xml' ) );
 			$( '#surveygroup > div' ).waitForVisible( );
 			var panel_heading = $( '#surveygroup > div > div.panel-heading > h4 > a' ).getText( );
 			expect( panel_heading ).to.equal( 'Survey: Snack' );
@@ -182,7 +183,7 @@ describe('Class Setup Tool', function() {
 			}, constants.waitTimeout, constants.textChangeTimeout );
 	        browser.alertAccept( );	    			
 			$( '#new_class_button' ).waitForVisible( );
-			$( '#classtable_filter > label > input' ).setValue( 'ids p1 bot' );
+			$( '#classtable_filter > label > input' ).setValue( class_urn );
 			$( '#classtable > tbody > tr > td' ).waitForText( );
 			expect( $( '#classtable > tbody > tr > td' ).getText( ) ).to.equal( 'No matching records found' );
 		} );

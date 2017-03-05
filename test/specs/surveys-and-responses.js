@@ -2,6 +2,7 @@ var expect = require('chai').expect;
 var login = require( '../helpers/login' );
 var uuidV4 = require('uuid/v4');
 var constants = require( '../helpers/constants' );
+var path = require( 'path' );
 
 before( function userLogin() {
 	login( browser );		
@@ -52,7 +53,7 @@ describe( 'Survey taking tool', function( ){
 			.setValue( 'Hunger' );
 		$( '#choice-SnackCost-1' ).click( );
 		$( '#step-body > div > div:nth-child(8) > div.step-body-region > div > form > div > div > div > input[type="file"]' )
-			.chooseFile( constants.specsDir + '/files/banana.jpeg' );
+			.chooseFile( path.normalize( constants.specsDir + path.normalize('/files/banana.jpeg') ) );
 		$( '#next-button' ).click( );
 		browser.waitUntil( function(){
 			return browser.getText( '#step-body > div > h2' ) === 'Survey Submit';

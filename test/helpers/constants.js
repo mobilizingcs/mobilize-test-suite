@@ -1,7 +1,7 @@
 // Notes: 
 // 	- All timeout values are in milliseconds
-
-var rootDir = process.argv[1].replace( "node_modules/webdriverio/build/lib/runner.js", "" );
+var path = require( 'path' );
+var rootDir = process.argv[1].replace( path.normalize( "node_modules/webdriverio/build/lib/runner.js" ), "" );
 var credentials = require( '../../credentials.json' );
 var reportDir = process.env.REPORT_DIR;
 
@@ -13,7 +13,7 @@ var constants = {
 	pauseTimeout: 3000, // timeout 
 
 	surveyWaitTimeout: 10000, // timeout for waitUntil after survey submission
-	specsDir: rootDir + 'test/specs',
+	specsDir: rootDir + path.normalize( 'test/specs' ),
 
 	ohmage_username: credentials.username,
 	ohmage_password: credentials.password,
