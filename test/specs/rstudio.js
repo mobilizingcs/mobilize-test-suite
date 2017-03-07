@@ -1,5 +1,11 @@
 var expect = require('chai').expect;
 var constants = require( '../helpers/constants' );
+var fs = require('fs');
+var path = require( 'path' );
+
+function writeStringToFile( string, file_path ) {
+	fs.writeFileSync( file_path, string ); 
+}
 
 describe('RStudio', function() {
 
@@ -15,18 +21,13 @@ describe('RStudio', function() {
 		$('body > div:nth-child(4)').waitForVisible();
 	} );
 
-	it( 'should be able to test mobilizr package', function( ) {	
-
+	it( 'should be able to test mobilizr package without any failures', function( ) {	
+	  	this.timeout(350000);
 		$( '#rstudio_console_input > textarea' ).setValue(
-				`devtools::install_github("mobilizingcs/mobilizr@beta",dependencies = TRUE)
-				detach("package:mobilizr", unload=TRUE)
-				file_dir <- "~/R/x86_64-pc-linux-gnu-library/"
-				r.vers <- list.dirs(file_dir, full.names = FALSE, recursive = FALSE)
-				r.vers <- as.numeric(r.vers)
-				r.ver <- max(r.vers)
-				location <- paste0(file_dir, r.ver, "/")
-				library( "mobilizr", lib.loc= location )
-				devtools::test( paste0( location, "mobilizr" ) )
+				`cat("\\014")
+				setwd("/home/kapeel/temp/mobilizr")
+				devtools::install()
+				devtools::test()
 				` );
 
 		var interval = 5000; // milliseconds
@@ -34,6 +35,8 @@ describe('RStudio', function() {
 
 		var tries = 0;
 		var last_output = 0;
+		var constant_output_max_checks = 5;
+		var constant_output_checks = 0;
 		while( tries <= max_tries ) {
 			var output = browser.execute( ( ) => {
 				var output_children_length = document.getElementById( 'rstudio_console_output' ).children.length;
@@ -41,6 +44,12 @@ describe('RStudio', function() {
 			} );
 			output = output.value;
 			if( last_output === output ) {
+				constant_output_checks++;				
+			}
+			else {
+				constant_output_checks = 0;
+			}
+			if( constant_output_checks >= constant_output_max_checks ) {
 				break;
 			}
 			last_output = output;
@@ -48,17 +57,20 @@ describe('RStudio', function() {
 			browser.pause( interval );
 		}
 
-		browser.saveScreenshot( constants.reportDir + '/rstudio-execution.png' );		
+		browser.saveScreenshot( constants.reportDir + path.normalize( '/rstudio-execution.png' ) );	
 		if( tries > max_tries + 1 ) {
 			// failed to finish execution within the stipulated tries and interval
 			expect( false ).to.equal( true );
 		}
 		else {
 			// execution finished within stipulated time
-			var console_output = $('#rstudio_console_output').getText();
-			// what should we test here?
-			//console_output = console_output.split( "\n" );
-			//console.log( '$' + console_output[console_output.length-1] + '$' );
+			var console_output = $('#rstudio_console_output').getText();			
+			writeStringToFile( console_output, constants.reportDir + path.normalize( '/rstudio-execution.log' ) );			
+			output_lines = console_output.split( "\n" );
+			var failure_string = "Failed ---";
+			for( var i = 0; i < output_lines.length; i++ ) {
+				expect( output_lines[ i ].indexOf( failure_string ) ).to.not.equal( 0 );
+			}
 		}
 
 	} );
