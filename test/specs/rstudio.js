@@ -26,7 +26,7 @@ describe('RStudio', function() {
 		$( '#rstudio_console_input > textarea' ).setValue(
 				`cat("\\014")
 				setwd("/home/kapeel/temp/mobilizr")
-				devtools::install()
+				devtools::install( dependencies = TRUE )
 				devtools::test()
 				` );
 
