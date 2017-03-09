@@ -27,7 +27,7 @@ describe('RStudio', function() {
 				`cat("\\014")
 				setwd("/home/kapeel/temp/mobilizr")
 				devtools::install( dependencies = TRUE )
-				devtools::test()
+				devtools::test( )
 				` );
 
 		var interval = 5000; // milliseconds
@@ -35,7 +35,7 @@ describe('RStudio', function() {
 
 		var tries = 0;
 		var last_output = 0;
-		var constant_output_max_checks = 5;
+		var constant_output_max_checks = 7;
 		var constant_output_checks = 0;
 		while( tries <= max_tries ) {
 			var output = browser.execute( ( ) => {
@@ -68,9 +68,19 @@ describe('RStudio', function() {
 			writeStringToFile( console_output, constants.reportDir + path.normalize( '/rstudio-execution.log' ) );			
 			output_lines = console_output.split( "\n" );
 			var failure_string = "Failed ---";
+			var testing_string = "Testing mobilizr";
+			var failure_detected = false;
+			var tests_were_run = false;
 			for( var i = 0; i < output_lines.length; i++ ) {
-				expect( output_lines[ i ].indexOf( failure_string ) ).to.not.equal( 0 );
+				if( output_lines[ i ].indexOf( failure_string ) === 0 ) {
+					failure_detected = true;
+				}
+				if( output_lines[ i ].indexOf( testing_string ) === 0 ) {
+					tests_were_run = true;
+				}				
 			}
+			expect( tests_were_run ).to.equal( true );
+			expect( failure_detected ).to.equal( false );
 		}
 
 	} );
